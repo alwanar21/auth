@@ -14,7 +14,7 @@ import {
   ModalHeader,
   ModalFooter,
 } from "@nextui-org/react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useAuthStore from "../store/auth-store";
 import Cookies from "js-cookie";
 import { useQueryClient } from "@tanstack/react-query";
@@ -26,6 +26,7 @@ export default function Navbar() {
   const navigate = useNavigate();
 
   function getInitials(name: string) {
+    if (!name) return "";
     const words = name.split(" ");
     const initials = words.map((word) => word.charAt(0).toUpperCase()).join("");
     return initials;
@@ -57,18 +58,12 @@ export default function Navbar() {
                   <Avatar
                     src={user?.picture}
                     showFallback
-                    name={getInitials(user?.username as string)}
+                    name={getInitials(user?.username as string) || ""}
                     className="text-xl cursor-pointer"
                   />
                 </PopoverTrigger>
                 <PopoverContent>
                   <div className="px-1 py-2">
-                    {user?.roles == "user" && (
-                      <Button as={Link} to="profile" color="default" variant="flat" size="sm" className="w-full mt-2">
-                        Profile
-                      </Button>
-                    )}
-
                     <Button color="danger" variant="flat" size="sm" className="w-full mt-2" onClick={onOpen}>
                       Logout
                     </Button>

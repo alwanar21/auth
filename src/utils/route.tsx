@@ -5,7 +5,8 @@ import Dashboard from "../pages/Dashboard";
 import AuthRoute from "../middleware/AuthRoute";
 import NotFoundPrivateRoute from "../components/NotFoundPrivateRoute";
 import RoleRoute from "../middleware/RoleRoute";
-import Profile from "../pages/Profile";
+import UpdateProfile from "../pages/user/UpdateProfile";
+import ChangePassword from "../pages/user/ChangePassword";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -21,10 +22,18 @@ const router = createBrowserRouter(
           }
         />
         <Route
-          path="profile"
+          path="profile/edit"
           element={
             <RoleRoute role={["user"]}>
-              <Profile />
+              <UpdateProfile />
+            </RoleRoute>
+          }
+        />
+        <Route
+          path="profile/password/edit"
+          element={
+            <RoleRoute role={["user"]}>
+              <ChangePassword />
             </RoleRoute>
           }
         />

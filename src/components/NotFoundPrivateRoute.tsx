@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 export default function NotFoundPrivateRoute() {
   return (
     <>
-      <div className="h-screen w-screen bg-gray-100 flex items-center">
+      <div className="h-[calc(100vh-64px)] w-screen bg-gray-100 flex items-center">
         <div className="container mx-auto flex flex-col md:flex-row items-center justify-center px-5 text-gray-700">
           <div className="max-w-md">
             <div className="text-5xl font-dark font-bold">404</div>

@@ -1,24 +1,13 @@
-import Admin from "../components/dahboard/Admin";
-import User from "../components/dahboard/User";
-import Navbar from "../components/Navbar";
+import Admin from "../components/dashboard/Admin";
+import User from "../components/dashboard/User";
 import useAuthStore from "../store/auth-store";
 
 export default function Dashboard() {
   const { user } = useAuthStore();
   if (user?.roles == "user") {
-    return (
-      <>
-        <Navbar />
-        <User />
-      </>
-    );
+    return <User />;
   }
   if (user?.roles == "admin") {
-    return (
-      <>
-        <Navbar />
-        <Admin />
-      </>
-    );
+    return <Admin />;
   }
 }

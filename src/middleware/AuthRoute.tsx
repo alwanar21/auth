@@ -3,6 +3,7 @@ import { GetProfile } from "../services/profile-service";
 import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import useAuthStore from "../store/auth-store";
+import Navbar from "../components/Navbar";
 
 export default function AuthRoute() {
   const { setUser } = useAuthStore();
@@ -22,5 +23,10 @@ export default function AuthRoute() {
     );
   }
 
-  return <Outlet />;
+  return (
+    <>
+      <Navbar />
+      <Outlet />
+    </>
+  );
 }

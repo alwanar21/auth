@@ -76,6 +76,7 @@ export default function Login({ setForm }: FormProps) {
               variant="bordered"
               isInvalid={!!errors?.email?.message}
               errorMessage={errors?.email?.message}
+              isDisabled={loginMutation.isPending}
               isRequired
             />
             <div>
@@ -97,27 +98,39 @@ export default function Login({ setForm }: FormProps) {
                   </button>
                 }
                 type={isVisible ? "text" : "password"}
+                isDisabled={loginMutation.isPending}
                 isRequired
               />
               <div className="flex flex-row justify-between mt-1">
-                <Link underline="hover" className="cursor-pointer text-xs" onClick={() => setForm("register")}>
+                <Link
+                  underline="hover"
+                  className="cursor-pointer text-xs"
+                  onClick={() => setForm("register")}
+                  isDisabled={loginMutation.isPending}
+                >
                   Don't have an account?
                 </Link>
                 <Link
                   underline="hover"
                   className="cursor-pointer text-xs"
                   onClick={() => setForm("email verification")}
+                  isDisabled={loginMutation.isPending}
                 >
                   Verify your email
                 </Link>
               </div>
               <div className="flex flex-row justify-between mt-1">
-                <Link underline="hover" className="cursor-pointer text-xs" onClick={() => setForm("forgotPassword")}>
+                <Link
+                  underline="hover"
+                  className="cursor-pointer text-xs"
+                  onClick={() => setForm("forgotPassword")}
+                  isDisabled={loginMutation.isPending}
+                >
                   Forgot password
                 </Link>
               </div>
             </div>
-            <Button color="primary" type="submit" fullWidth>
+            <Button color="primary" type="submit" fullWidth isLoading={loginMutation.isPending}>
               Submit
             </Button>
           </form>

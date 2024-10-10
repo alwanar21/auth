@@ -4,9 +4,7 @@ const updatePasswordValidation = z
   .object({
     currentPassword: z
       .string({ message: "Current password must be a string" })
-      .min(1, { message: "Current password is required" })
-      .email({ message: "Email must be a valid email format" }),
-
+      .min(1, { message: "Current password is required" }),
     newPassword: z
       .string({ message: "New password must be a string" })
       .min(1, { message: "New password is required" })
@@ -31,13 +29,9 @@ const updateProfileValidation = z.object({
         "Username must be 3-10 characters, can contain uppercase or lowercase letters, numbers, periods, and underscores, and cannot start, end, or have consecutive periods or underscores.",
     }),
 
-  birthDate: z
-    .string()
-    .min(1, { message: "Birth date is required" }) // Checks for non-empty string
-    .refine((date) => !isNaN(Date.parse(date)), {
-      message: "Birth Date must be a valid Date",
-    })
-    .transform((date) => new Date(date)),
+  birthDate: z.date({
+    message: "Birth date is required",
+  }),
 });
 
 export { updatePasswordValidation, updateProfileValidation };
