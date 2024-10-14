@@ -19,7 +19,7 @@ export default function ForgotPassword({ setForm }: FormProps) {
   const forgotPasswordMutation = useMutation({
     mutationFn: UserForgotPassword,
     onSuccess: (data) => {
-      toast.success(`Welcome, ${data?.data?.data.username}!`);
+      toast.success(data?.data?.message);
       reset();
     },
     onError: (error) => {
@@ -67,13 +67,19 @@ export default function ForgotPassword({ setForm }: FormProps) {
                 variant="bordered"
                 isInvalid={!!errors?.email?.message}
                 errorMessage={errors?.email?.message}
+                isDisabled={forgotPasswordMutation.isPending}
                 isRequired
               />
-              <Link underline="hover" className="cursor-pointer text-xs" onClick={() => setForm("login")}>
+              <Link
+                underline="hover"
+                className="cursor-pointer text-xs"
+                onClick={() => setForm("login")}
+                isDisabled={forgotPasswordMutation.isPending}
+              >
                 Back to Login
               </Link>
             </div>
-            <Button color="primary" type="submit" fullWidth>
+            <Button color="primary" type="submit" fullWidth isLoading={forgotPasswordMutation.isPending}>
               Submit
             </Button>
           </form>

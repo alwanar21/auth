@@ -30,7 +30,7 @@ export default function UpdateProfile() {
     resolver: zodResolver(updateProfileValidation),
     defaultValues: {
       username: user?.username,
-      birthDate: user?.birthDate ? new Date(user?.birthDate) : undefined,
+      birthDate: user?.birthDate ? new Date(user?.birthDate) : new Date(),
     },
   });
 
@@ -92,7 +92,11 @@ export default function UpdateProfile() {
               render={({ field }) => (
                 <DatePicker
                   label="Birth date"
-                  defaultValue={parseDate(moment(user?.birthDate).format("YYYY-MM-DD"))}
+                  defaultValue={
+                    user?.birthDate
+                      ? parseDate(moment(user?.birthDate).format("YYYY-MM-DD"))
+                      : parseDate(moment(Date.now()).format("YYYY-MM-DD"))
+                  }
                   onChange={(date: CalendarDate) => field.onChange(date.toDate("UTC"))}
                   variant="bordered"
                   isInvalid={!!errors?.birthDate?.message}

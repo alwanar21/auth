@@ -7,6 +7,7 @@ import NotFoundPrivateRoute from "../components/NotFoundPrivateRoute";
 import RoleRoute from "../middleware/RoleRoute";
 import UpdateProfile from "../pages/user/UpdateProfile";
 import ChangePassword from "../pages/user/ChangePassword";
+import ResetPassword from "../pages/ResetPassword";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -39,6 +40,7 @@ const router = createBrowserRouter(
         />
         <Route path="*" element={<NotFoundPrivateRoute />} />
       </Route>
+      <Route path="reset-password/:token" element={<ResetPassword />} />
       <Route path="*" element={<NotFound />} />
     </Route>
   )

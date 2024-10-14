@@ -1,9 +1,9 @@
 import { z } from "zod";
 import { toast } from "sonner";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { AxiosError } from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { formatErrors } from "../../utils/format-errors";
@@ -22,8 +22,27 @@ type LoginUserType = z.infer<typeof loginUserValidation>;
 
 export default function Login({ setForm }: FormProps) {
   const [isVisible, setIsVisible] = useState(false);
+  const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const toggleVisibility = () => setIsVisible(!isVisible);
+
+  useEffect(() => {
+    const message = searchParams.get("message");
+
+    if (message) {
+      const timeoutToast = setTimeout(() => {
+        toast.success(message);
+      }, 1000);
+      const navigateTimeout = setTimeout(() => {
+        navigate("/");
+      }, 1500);
+
+      return () => {
+        clearTimeout(timeoutToast);
+        clearTimeout(navigateTimeout);
+      };
+    }
+  }, [navigate, searchParams]);
 
   const loginMutation = useMutation({
     mutationFn: UserLogin,

@@ -37,4 +37,15 @@ const UpdateProfile = async (data: UpdateProfileType) => {
   return result;
 };
 
-export { GetProfile, GetProfiles, UpdateProfile, ChangePassword };
+const changeProfilePicture = async (data: FormData) => {
+  const result = await PrivateInstance("/api/profile/profile-picture", {
+    data,
+    method: "put",
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+  return result;
+};
+
+export { GetProfile, GetProfiles, UpdateProfile, ChangePassword, changeProfilePicture };

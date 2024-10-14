@@ -46,8 +46,6 @@ const emailVerificationValidation = z.object({
 
 const resetPasswordValidation = z
   .object({
-    token: z.string({ message: "Token must be a string" }).min(1, { message: "Token is required" }),
-
     password: z
       .string({ message: "Password must be a string" })
       .min(1, { message: "Password is required" })

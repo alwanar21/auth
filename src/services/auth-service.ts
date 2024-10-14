@@ -6,12 +6,14 @@ import {
   forgotPasswordValidation,
   loginUserValidation,
   registerUserValidation,
+  resetPasswordValidation,
 } from "../validation/auth-validation";
 
 type LoginType = z.infer<typeof loginUserValidation>;
 type RegisterType = z.infer<typeof registerUserValidation>;
 type EmailVerificationType = z.infer<typeof emailVerificationValidation>;
 type ForgotPasswordType = z.infer<typeof forgotPasswordValidation>;
+type ResetPasswordType = z.infer<typeof resetPasswordValidation>;
 
 const Login = async (data: LoginType) => {
   const result = await PublicInstance("/api/login", {
@@ -59,4 +61,19 @@ const RefreshToken = async () => {
   return result;
 };
 
-export { Login, Register, EmailVerification, ForgotPassword, RefreshToken };
+const ResetPasswordVerification = async (token: string) => {
+  const result = await PublicInstance(`/auth/reset-password/${token}`, {
+    method: "get",
+  });
+  return result;
+};
+
+const ResetPassword = async (data: ResetPasswordType) => {
+  const result = await PublicInstance("/api/auth/reset-password", {
+    data,
+    method: "put",
+  });
+  return result;
+};
+
+export { Login, Register, EmailVerification, ForgotPassword, RefreshToken, ResetPasswordVerification, ResetPassword };

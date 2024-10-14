@@ -34,4 +34,13 @@ const updateProfileValidation = z.object({
   }),
 });
 
-export { updatePasswordValidation, updateProfileValidation };
+const changeProfilePictureValidation = z.object({
+  picture: z
+    .any()
+    .refine((files) => files?.[0]?.size <= 5 * 1024 * 1024, { message: "File size should be under 5MB" })
+    .refine((files) => ["image/jpeg", "image/jpg"].includes(files?.[0]?.type), {
+      message: "Only images are allowed",
+    }),
+});
+
+export { updatePasswordValidation, updateProfileValidation, changeProfilePictureValidation };
